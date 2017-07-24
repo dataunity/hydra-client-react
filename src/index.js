@@ -12,8 +12,14 @@ if (process.env.NODE_ENV !== 'production') {
   middleware.push(createLogger())
 }
 
+const intialState = {
+	entryPoint: 'http://localhost:8080/hydra/entrypoint',
+	currentHydraAPIDoc: 'http://localhost:8080/hydra/api-doc'
+}
+
 const store = createStore(
   reducer,
+  intialState,
   applyMiddleware(...middleware)
 )
 

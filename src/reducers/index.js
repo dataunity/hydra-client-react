@@ -84,11 +84,11 @@ import account from '../containers/account';
 //   }
 // }
 
-const entryPoint = (state = 'http://localhost:8080/hydra/entrypoint', action) => {
+const entryPoint = (state = '', action) => {
   return state
 }
 
-const currentHydraAPIDoc = (state = 'http://localhost:8080/hydra/api-doc', action) => {
+const currentHydraAPIDoc = (state = '', action) => {
   switch (action.type) {
     case CHANGE_HYDRA_API_DOC:
       return action.iri
@@ -163,7 +163,7 @@ const hydraAPIDoc = (state = { }, action) => {
 // Hydra Browsing by Frame
 // -------------------
 
-const currentIRIForFrame = (state = { 'main': 'http://localhost:8080/hydra/entrypoint', 'other': 'http://localhost:8080/csvw/table-summaries' }, action) => {
+const currentIRIForFrame = (state = { }, action) => {
   switch (action.type) {
     case CHANGE_IRI_FOR_FRAME:
       return {
