@@ -16,3 +16,10 @@ export const HydraNamespace = {
     PagedCollection: hydraBase + "PagedCollection",
     member: hydraBase + "member"
 }
+
+// Experimental extensions to Hydra
+const hydraExtBase = 'http://dataunity.org/ns/hydra-ext#'
+export const HydraExtNamespace = {
+    _base: hydraExtBase,
+    inputTypeFileUpload: hydraExtBase + "inputTypeFileUpload"
+}

@@ -2,9 +2,11 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
-import { HydraNamespace } from '../namespaces/Hydra'
+import { HydraNamespace, HydraExtNamespace } from '../namespaces/Hydra'
+import { RDFSNamespace } from '../namespaces/RDFS'
 import { getTitle as getHydraTitle } from '../hydra/apidoc'
-import { getIdValue } from '../jsonld/helper'
+import { dearrayify, getIdValue } from '../jsonld/helper'
+import ReduxFormDropzone from '../components/ReduxFormDropzone'
 
 // Testing
 import { load as loadAccount } from './account'
@@ -35,6 +37,32 @@ class HydraForm extends Component {
     return fieldName.replace('.', '!')
   }
 
+  createField(suppProp) {
+    const rdfProperty = dearrayify(suppProp[HydraNamespace.property])
+    const fieldName = this.prepareFieldName(getIdValue(rdfProperty))
+    const propertyRange = rdfProperty[RDFSNamespace.range]
+    const propertyRangeIRI = propertyRange ? getIdValue(propertyRange) : ''
+    console.log("[HydraForm] createField", rdfProperty, propertyRangeIRI, propertyRange)
+
+    switch (propertyRangeIRI) {
+      // Hack to specify File input field, need to find out how to do it in Hydra proper
+      case HydraExtNamespace.inputTypeFileUpload:
+        return <Field
+              name={fieldName}
+              component={ReduxFormDropzone}
+              //style={style.dropzone}
+              multiple={false}
+              dropzoneOnDrop={this.handleDrop} />
+      default:
+        return <Field
+              name={fieldName}
+              component="input"
+              type="text"
+              placeholder="Testing" />
+    }
+    
+  }
+
   render() {
     const { handleSubmit, load, pristine, reset, submitting } = this.props
     const { expectedClass } = this.props
@@ -49,12 +77,7 @@ class HydraForm extends Component {
           Object.keys(suppProps).map((prop, i) =>
           <div key={i}>
             <label>{getHydraTitle(suppProps[prop])}</label>
-            <Field
-              name={this.prepareFieldName(getIdValue(suppProps[prop][HydraNamespace.property]))}
-              component="input"
-              type="text"
-              placeholder="Testing"
-            />
+            {this.createField(suppProps[prop])}
           </div>
         )}
         <div>

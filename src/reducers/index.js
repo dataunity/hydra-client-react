@@ -11,7 +11,8 @@ import {
 } from '../actions'
 import {
   CHANGE_IRI_FOR_FRAME, INVALIDATE_FRAME,
-  REQUEST_DOC_FOR_FRAME, RECEIVE_DOC_FOR_FRAME
+  REQUEST_DOC_FOR_FRAME, RECEIVE_DOC_FOR_FRAME,
+  SET_FORM_FOR_FRAME, REMOVE_FORM_FOR_FRAME
 } from '../actions'
 
 // Testing redux-form
@@ -189,6 +190,27 @@ const hydraDocByFrameId = (state = { }, action) => {
   }
 }
 
+// Hydra forms
+const formByFrameId = (state = { }, action) => {
+  switch (action.type) {
+    case SET_FORM_FOR_FRAME:
+      return {
+        ...state,
+        [action.frameId]: {
+          method: action.method,
+          formUrl: action.formUrl,
+          expectedClass: Object.assign({}, action.expectedClass)
+        }
+      }
+    case REMOVE_FORM_FOR_FRAME:
+      // Remove the form entry for the frameId
+      var newState = Object.assign({}, state)
+      delete newState[action.frameId]
+      return newState
+    default:
+      return state
+  }
+}
 
 const rootReducer = combineReducers({
   // postsByReddit,
@@ -202,6 +224,7 @@ const rootReducer = combineReducers({
   hydraAPIDoc,
   hydraDocByFrameId,
   currentIRIForFrame,
+  formByFrameId,
 
   // Testing for redux-form
   form: reduxFormReducer,
@@ -209,3 +232,4 @@ const rootReducer = combineReducers({
 })
 
 export default rootReducer
+

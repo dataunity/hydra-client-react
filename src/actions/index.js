@@ -190,21 +190,44 @@ export const fetchHydraAPIDocIfNeeded = iri => (dispatch, getState) => {
   }
 }
 
+// Hydra Forms
+export const SET_FORM_FOR_FRAME = 'SET_FORM_FOR_FRAME'
+export const REMOVE_FORM_FOR_FRAME = 'REMOVE_FORM_FOR_FRAME'
+
+export const setFormForFrame = (frameId, method, formUrl, expectedClass) => ({
+  type: SET_FORM_FOR_FRAME,
+  frameId,
+  method,
+  formUrl,
+  expectedClass
+})
+
+export const removeFormForFrame = frameId => ({
+  type: REMOVE_FORM_FOR_FRAME,
+  frameId
+})
 
 // Hydra Browsing by Frame
 
-// export const CHANGE_DOC_FOR_FRAME = 'CHANGE_DOC_FOR_FRAME'
 export const REQUEST_DOC_FOR_FRAME = 'REQUEST_DOC_FOR_FRAME'
 export const RECEIVE_DOC_FOR_FRAME = 'RECEIVE_DOC_FOR_FRAME'
-// export const SELECT_REDDIT = 'SELECT_REDDIT'
 export const INVALIDATE_FRAME = 'INVALIDATE_FRAME'
 export const CHANGE_IRI_FOR_FRAME = 'CHANGE_IRI_FOR_FRAME'
 
-export const changeIRIForFrame = (frameId, iri) => ({
-  type: CHANGE_IRI_FOR_FRAME,
-  frameId,
-  iri
-})
+export const changeIRIForFrame = (frameId, iri) => (dispatch, getState) => {
+  dispatch(removeFormForFrame(frameId))
+  dispatch({
+    type: CHANGE_IRI_FOR_FRAME,
+    frameId,
+    iri
+  })
+}
+
+// export const changeIRIForFrame = (frameId, iri) => ({
+//   type: CHANGE_IRI_FOR_FRAME,
+//   frameId,
+//   iri
+// })
 
 export const invalidateFrame = frameId => ({
   type: INVALIDATE_FRAME,
@@ -259,8 +282,8 @@ const shouldFetchDocForFrame = (state, frameId) => {
 }
 
 export const fetchDocForFrameIfNeeded = (frameId, iri) => (dispatch, getState) => {
-  // console.log("fetchDocForFrameIfNeeded()", frameId, iri)
   if (shouldFetchDocForFrame(getState(), frameId)) {
     return dispatch(fetchDocForFrame(frameId, iri))
   }
 }
+

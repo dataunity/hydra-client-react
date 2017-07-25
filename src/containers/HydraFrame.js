@@ -5,36 +5,20 @@ import {
   fetchDocForFrameIfNeeded,
   invalidateFrame, changeIRIForFrame
 } from '../actions'
-// import { 
-//   changeHydraDoc, fetchHydraDocIfNeeded, 
-//   invalidateHydraDoc, fetchHydraAPIDocIfNeeded,
-//   fetchDocForFrameIfNeeded,
-//   invalidateFrame, changeIRIForFrame
-// } from '../actions'
 import IRIEntry from '../components/IRIEntry'
-import HydraDoc from '../components/HydraDoc'
+import HydraDoc from '../containers/HydraDoc'
 import HydraCollection from '../components/HydraCollection'
 import { findSupportedClass, isSubClassOf } from '../hydra/apidoc'
 import { HydraNamespace } from '../namespaces/Hydra'
-
 import { typesContainAny } from '../jsonld/helper'
-
-// Testing for redux-form
-import showResults from './showResults'
-import InitializeFromStateForm from './InitializeFromStateForm'
-import HydraForm from './HydraForm'
-// import { findSupportedClass } from '../hydra/apidoc'
-
 
 class HydraFrame extends Component {
   static propTypes = {
     frameId: PropTypes.string.isRequired,
     iri: PropTypes.string.isRequired,
-    // currentHydraDoc: PropTypes.string.isRequired,
-    // currentHydraAPIDoc: PropTypes.string.isRequired,
     apiDoc: PropTypes.object.isRequired,
     apiDocClass: PropTypes.object,
-    hydraDoc: PropTypes.object, // .isRequired,
+    hydraDoc: PropTypes.object,
     isFetching: PropTypes.bool.isRequired,
     lastUpdated: PropTypes.number,
     dispatch: PropTypes.func.isRequired
@@ -42,9 +26,6 @@ class HydraFrame extends Component {
 
   componentDidMount() {
     const { dispatch, frameId, iri } = this.props
-    // const { dispatch, currentHydraDoc, currentHydraAPIDoc } = this.props
-    // dispatch(fetchHydraDocIfNeeded(currentHydraDoc))
-    // dispatch(fetchHydraAPIDocIfNeeded(currentHydraAPIDoc))
     dispatch(fetchDocForFrameIfNeeded(frameId, iri))
   }
 
@@ -56,18 +37,11 @@ class HydraFrame extends Component {
       dispatch(invalidateFrame(frameId))
       dispatch(fetchDocForFrameIfNeeded(frameId, iri))
     }
-    // if (nextProps.currentHydraDoc !== this.props.currentHydraDoc) {
-    //   console.log("Different Hydra Doc requested")
-    //   const { dispatch, currentHydraDoc } = nextProps
-    //   dispatch(invalidateHydraDoc(currentHydraDoc))
-    //   dispatch(fetchHydraDocIfNeeded(currentHydraDoc))
-    // }
   }
 
   handleIRISubmit = nextIri => {
     const { dispatch, frameId } = this.props
     dispatch(changeIRIForFrame(frameId, nextIri))
-    // this.props.dispatch(changeHydraDoc(nextIri))
   }
 
   handleRefreshClick = e => {
@@ -76,10 +50,6 @@ class HydraFrame extends Component {
     const { dispatch, frameId, iri } = this.props
     dispatch(invalidateFrame(frameId))
     dispatch(fetchDocForFrameIfNeeded(frameId, iri))
-
-    // const { dispatch, currentHydraDoc } = this.props
-    // dispatch(invalidateHydraDoc(currentHydraDoc))
-    // dispatch(fetchHydraDocIfNeeded(currentHydraDoc))
   }
 
   handleHomeClick = e => {
@@ -88,14 +58,6 @@ class HydraFrame extends Component {
     const { dispatch, frameId, defaultIri } = this.props
     dispatch(changeIRIForFrame(frameId, defaultIri))
   }
-
-  // findAPIDocSupportedClass () {
-  //   const { hydraDoc, apiDoc } = this.props
-  //   console.log("APIDoc:")
-  //   console.log("TODO: find out why API doc object is under apiDoc key")
-  //   console.log(apiDoc.apiDoc)
-  //   return findSupportedClass (apiDoc.apiDoc, hydraDoc['@type'])
-  // }
 
   isHydraDocEmpty() {
     const { hydraDoc } = this.props
@@ -120,11 +82,6 @@ class HydraFrame extends Component {
     const { iri, isFetching, lastUpdated, hydraDoc, frameId, apiDocClass, apiDoc, defaultIri } = this.props
     const isEmpty = this.isHydraDocEmpty()
     const isCollectn = this.isCollection()
-
-    // TEMP testing redux form
-    // const expectedClass = findSupportedClass(apiDoc, {'@id': 'http://localhost:8080/hydra/entrypoint'})
-    const expectedClass = findSupportedClass(apiDoc, 'http://localhost:8080/hydra/api-doc#DatasetSummary')
-    // END TEMP
 
     return (
       <div>
@@ -155,8 +112,6 @@ class HydraFrame extends Component {
               </div>
           }
         </div>
-        <HydraForm onSubmit={showResults} expectedClass={expectedClass} />
-        <InitializeFromStateForm onSubmit={showResults} />
       </div>)
   }
 }

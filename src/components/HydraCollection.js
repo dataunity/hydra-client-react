@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import HydraDoc from '../components/HydraDoc'
+import HydraDoc from '../containers/HydraDoc'
 import PropTypes from 'prop-types'
-import HydraProperty from './HydraProperty'
 import { getLabel } from '../jsonld/helper'
 import { HydraNamespace } from '../namespaces/Hydra'
 import { findSupportedClass } from '../hydra/apidoc'

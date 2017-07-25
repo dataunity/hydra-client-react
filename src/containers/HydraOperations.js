@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { getLabel, getLiteralValue } from '../jsonld/helper'
-import { getSupportedOperations } from '../hydra/apidoc'
+import { getLabel, getLiteralValue, getIdValue } from '../jsonld/helper'
+import { getSupportedOperations, findSupportedClass } from '../hydra/apidoc'
 import { HydraNamespace } from '../namespaces/Hydra'
-import { changeIRIForFrame } from '../actions'
+import { changeIRIForFrame, setFormForFrame } from '../actions'
 
 class HydraOperations extends Component {
 
@@ -12,6 +12,7 @@ class HydraOperations extends Component {
 		super(props)
 
 		this.handleGETClick = this.handleGETClick.bind(this)
+		this.handlePOSTClick = this.handlePOSTClick.bind(this)
 	}
 
 	getOperations() {
@@ -29,8 +30,18 @@ class HydraOperations extends Component {
 		dispatch(changeIRIForFrame(frameId, evt.target.href))
 	}
 
+	handlePOSTClick(method, formUrl, expectedClassIRI) {
+		const { frameId, dispatch, apiDoc } = this.props
+		const expectedClass = findSupportedClass(apiDoc, expectedClassIRI)
+		if (expectedClass == null) {
+			throw new Error("Couldn't find form's expected SupportedClass in Hydra API Doc for " + expectedClassIRI)
+		}
+		dispatch(setFormForFrame(frameId, method, formUrl, expectedClass))
+	}
+
 	createOpElement(op, val, index) {
-		let formMethod = getLiteralValue(op, HydraNamespace.method, "")
+		const formMethod = getLiteralValue(op, HydraNamespace.method, "")
+
 		if (!val || !val.hasOwnProperty("@id")) {
 			throw new Error("Expected property value to be an id link")
 		}
@@ -45,7 +56,7 @@ class HydraOperations extends Component {
 				// 		<span onClick={e => this.handleIriChange(e)}>Click</span>
 				// 	</div>)
 			case "POST":
-				return <span key={index}>POST Op {getLabel(op)}</span>
+				return <span key={index}><a onClick={e => {e.preventDefault(); this.handlePOSTClick(formMethod, url, getIdValue(op[HydraNamespace.expects]))}} href={url}>{getLabel(op)}</a> POST Op {getLabel(op)}</span>
 			default:
 				return <span>Unknown Operation</span>
 		}
@@ -74,9 +85,10 @@ HydraOperations.propTypes = {
 
 function mapStateToProps(state) {
 	const { hydraAPIDoc } = state
+	const apiDoc = hydraAPIDoc.content
 
 	return {
-		hydraAPIDoc
+		apiDoc
 	}
 }
 
