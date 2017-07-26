@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import HydraProperties from '../components/HydraProperties'
+import HydraProperties from '../containers/HydraProperties'
 import { getLabel } from '../jsonld/helper'
 
 // Testing for redux-form

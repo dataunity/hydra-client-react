@@ -19,10 +19,10 @@ class HydraOperations extends Component {
 		return getSupportedOperations(this.props.supportedProperty)
 	}
 
-	handleIriChange(evt) {
-		console.log("Handling GET op", evt)
-		// this.props.dispatch(fetchHydraDoc('http://localhost:8080/hydra/entrypoint'))
-	}
+	// handleIriChange(evt) {
+	// 	console.log("Handling GET op", evt)
+	// 	// this.props.dispatch(fetchHydraDoc('http://localhost:8080/hydra/entrypoint'))
+	// }
 
 	handleGETClick(evt) {
 		const { frameId, dispatch } = this.props
@@ -56,7 +56,7 @@ class HydraOperations extends Component {
 				// 		<span onClick={e => this.handleIriChange(e)}>Click</span>
 				// 	</div>)
 			case "POST":
-				return <span key={index}><a onClick={e => {e.preventDefault(); this.handlePOSTClick(formMethod, url, getIdValue(op[HydraNamespace.expects]))}} href={url}>{getLabel(op)}</a> POST Op {getLabel(op)}</span>
+				return <span key={index}><a onClick={e => {e.preventDefault(); this.handlePOSTClick(formMethod, url, getIdValue(op[HydraNamespace.expects]))}} href={url}>{getLabel(op)}</a> (POST)</span>
 			default:
 				return <span>Unknown Operation</span>
 		}

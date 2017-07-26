@@ -212,6 +212,13 @@ const formByFrameId = (state = { }, action) => {
   }
 }
 
+// Override components
+
+// Overrides for Hydra Property componenets to customise look for a Property
+const overrideHydraPropertyComponents = (state = {}, action) => {
+  return state
+}
+
 const rootReducer = combineReducers({
   // postsByReddit,
   // selectedReddit,
@@ -228,7 +235,10 @@ const rootReducer = combineReducers({
 
   // Testing for redux-form
   form: reduxFormReducer,
-  account
+  account,
+
+  // Testing for override components
+  overrideHydraPropertyComponents
 })
 
 export default rootReducer

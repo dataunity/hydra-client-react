@@ -7,6 +7,53 @@ import { createLogger } from 'redux-logger'
 import reducer from './reducers'
 import App from './containers/App'
 
+
+
+
+//*******************************
+// Testing override components
+import { Component } from 'react'
+// import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { HydraNamespace } from './namespaces/Hydra'
+import { getLiteralValue } from './jsonld/helper'
+import HydraOperations from './containers/HydraOperations'
+
+export default class TestHydraProperty extends Component {
+  getLabel () {
+    return getLiteralValue(this.props.supportedProperty, HydraNamespace.title, "Unknown")
+  }
+  render() {
+    const { supportedProperty, val, frameId } = this.props
+    let label = this.getLabel()
+    const isSimpleValue = val.hasOwnProperty("@value")
+    // console.log("[TestHydraProperty] supportedProperty", val, supportedProperty)
+
+    return (
+      <div>
+        <strong>Override for EntryPoint devices</strong>
+        <span>{label}: </span>
+        {isSimpleValue &&
+          <span>{val["@value"]}</span>
+        }
+        <HydraOperations 
+          val={val} 
+          supportedProperty={supportedProperty}
+          frameId={frameId} />
+      </div>
+    )
+  }
+}
+
+TestHydraProperty.propTypes = {
+  val: PropTypes.object,  // The value of the Hydra Doc property
+  supportedProperty: PropTypes.object,
+  frameId: PropTypes.string.isRequired
+}
+
+//*******************************
+
+
 const middleware = [ thunk ]
 if (process.env.NODE_ENV !== 'production') {
   middleware.push(createLogger())
@@ -14,7 +61,10 @@ if (process.env.NODE_ENV !== 'production') {
 
 const intialState = {
 	entryPoint: 'http://localhost:8080/hydra/entrypoint',
-	currentHydraAPIDoc: 'http://localhost:8080/hydra/api-doc'
+	currentHydraAPIDoc: 'http://localhost:8080/hydra/api-doc',
+  overrideHydraPropertyComponents: {
+    'http://localhost:8080/hydra/api-doc#EntryPoint/devicesummaries': TestHydraProperty
+  }
 }
 
 const store = createStore(
