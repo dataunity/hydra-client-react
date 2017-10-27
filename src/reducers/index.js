@@ -4,9 +4,9 @@ import { combineReducers } from 'redux'
 //   REQUEST_POSTS, RECEIVE_POSTS
 // } from '../actions'
 import {
-  CHANGE_HYDRA_API_DOC, 
+  CHANGE_HYDRA_API_DOC,
   INVALIDATE_HYDRA_API_DOC,
-  REQUEST_HYDRA_API_DOC, 
+  REQUEST_HYDRA_API_DOC,
   RECEIVE_HYDRA_API_DOC
 } from '../actions'
 import {
@@ -214,8 +214,14 @@ const formByFrameId = (state = { }, action) => {
 
 // Override components
 
-// Overrides for Hydra Property componenets to customise look for a Property
+// Overrides for Hydra Property components to customise look for a Property
 const overrideHydraPropertyComponents = (state = {}, action) => {
+  return state
+}
+
+// Overrides for providing non-default Component for Hydra Doc using the Hydra
+// Class name
+const overrideHydraDocByClassComponents = (state = {}, action) => {
   return state
 }
 
@@ -238,8 +244,8 @@ const rootReducer = combineReducers({
   account,
 
   // Testing for override components
-  overrideHydraPropertyComponents
+  overrideHydraPropertyComponents,
+  overrideHydraDocByClassComponents
 })
 
 export default rootReducer
-

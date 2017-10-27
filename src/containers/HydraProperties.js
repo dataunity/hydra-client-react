@@ -6,18 +6,22 @@ import { dearrayify } from '../jsonld/helper'
 import { findSupportedPropertyInClass } from '../hydra/apidoc'
 
 class HydraProperties extends Component {
-	
+
 	getHydraPropertyElement(hydraPropIRI, hydraProp) {
 		const { overrideHydraPropertyComponents, supportedClass, frameId } = this.props
 		const overrideComponent = overrideHydraPropertyComponents[hydraPropIRI]
 		const supportedProperty = findSupportedPropertyInClass(supportedClass, hydraPropIRI)
 		const val = dearrayify(hydraProp)
 
+		if (supportedProperty === null) {
+			throw new Error("SupportedProperty is missing for property IRI " + hydraPropIRI)
+		}
+
 		if (overrideComponent) {
 			return React.createElement(overrideComponent, {val, supportedProperty, frameId})
 		} else {
-			return <HydraProperty 
-				val={val} 
+			return <HydraProperty
+				val={val}
 				supportedProperty={supportedProperty}
 				frameId={frameId} />
 		}
@@ -34,7 +38,7 @@ class HydraProperties extends Component {
 						{this.getHydraPropertyElement(prop, hydraDoc[prop])}
 					</div>
 				)}
-			</div> 
+			</div>
 		)
 	}
 }

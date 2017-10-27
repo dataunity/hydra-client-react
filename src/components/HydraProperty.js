@@ -20,8 +20,8 @@ export default class HydraProperty extends Component {
 				{isSimpleValue &&
 					<span>{val["@value"]}</span>
 				}
-				<HydraOperations 
-					val={val} 
+				<HydraOperations
+					val={val}
 					supportedProperty={supportedProperty}
 					frameId={frameId} />
 			</div>
@@ -31,6 +31,6 @@ export default class HydraProperty extends Component {
 
 HydraProperty.propTypes = {
 	val: PropTypes.object,	// The value of the Hydra Doc property
-	supportedProperty: PropTypes.object,
+	supportedProperty: PropTypes.object.isRequired,
 	frameId: PropTypes.string.isRequired
 }

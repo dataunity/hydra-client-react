@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { 
-  invalidateHydraAPIDoc, 
+import {
+  invalidateHydraAPIDoc,
   changeHydraAPIDoc,
   fetchHydraAPIDocIfNeeded
 } from '../actions'
@@ -44,6 +44,21 @@ class HydraApp extends Component {
     dispatch(fetchHydraAPIDocIfNeeded(currentHydraAPIDoc))
   }
 
+  // TODO: remove this debug method of logging in
+  handleDebugLogIn = e => {
+    e.preventDefault()
+
+    // Response will set an auth cookie
+    fetch('http://localhost:8080/temp-authenticate', {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+
+        }
+    })
+        .then(response => console.log('Logged in'))
+  }
+
   render() {
     const { currentHydraAPIDoc, isFetching, lastUpdated, apiDoc, entryPoint } = this.props
     const isEmpty = !apiDoc["@type"]
@@ -52,6 +67,7 @@ class HydraApp extends Component {
       <div>
         <IRIEntry value={currentHydraAPIDoc}
           onSubmit={this.handleIRISubmit} />
+        <p><button onClick={this.handleDebugLogIn}>Debug Login</button></p>
         <p>
           {lastUpdated &&
             <span>

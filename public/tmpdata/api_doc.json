@@ -4,7 +4,7 @@
     {
       "hydra:title": "Collection",
       "supportedOperation": [
-        
+
       ],
       "@type": "hydra:Class",
       "@id": "http://www.w3.org/ns/hydra/core#Collection",
@@ -25,7 +25,7 @@
     {
       "hydra:title": "Collection",
       "supportedOperation": [
-        
+
       ],
       "@type": "hydra:Class",
       "@id": "http://www.w3.org/ns/hydra/core#PagedCollection",
@@ -111,7 +111,7 @@
           "method": "GET",
           "description": null,
           "statusCodes": [
-            
+
           ],
           "@id": "_:entry_point",
           "returns": "vocab:EntryPoint",
@@ -136,7 +136,7 @@
                 "method": "GET",
                 "description": null,
                 "statusCodes": [
-                  
+
                 ],
                 "@id": "_:datasets_retrieve",
                 "returns": "vocab:DatasetSummaryPagedCollection",
@@ -164,7 +164,7 @@
                 "method": "GET",
                 "description": null,
                 "statusCodes": [
-                  
+
                 ],
                 "@id": "_:datatables_retrieve",
                 "returns": "vocab:DataTableSummaryPagedCollection",
@@ -188,7 +188,7 @@
                 "method": "POST",
                 "description": null,
                 "statusCodes": [
-                  
+
                 ],
                 "@id": "_:addDataset2",
                 "label": "Create a Dataset"
@@ -216,7 +216,7 @@
                 "method": "GET",
                 "description": null,
                 "statusCodes": [
-                  
+
                 ],
                 "@id": "_:csvw_datasets_retrieve",
                 "returns": "vocab:CSVWTableSummaryPagedCollection",
@@ -244,7 +244,7 @@
                 "method": "GET",
                 "description": null,
                 "statusCodes": [
-                  
+
                 ],
                 "@id": "_:panel_summaries_retrieve",
                 "returns": "vocab:PanelSummaryPagedCollection",
@@ -271,7 +271,7 @@
                 "method": "GET",
                 "description": null,
                 "statusCodes": [
-                  
+
                 ],
                 "@id": "_:device_summaries_retrieve",
                 "returns": "vocab:DeviceSummaryPagedCollection",
@@ -295,7 +295,7 @@
                 "method": "POST",
                 "description": null,
                 "statusCodes": [
-                  
+
                 ],
                 "@id": "_:datatable_select",
                 "label": "Select a Dataset"
@@ -315,7 +315,7 @@
       "subClassOf": "http://www.w3.org/ns/hydra/core#PagedCollection",
       "description": "A collection of panels",
       "supportedOperation": [
-        
+
       ],
       "@type": "hydra:Class",
       "@id": "vocab:PanelSummaryPagedCollection",
@@ -334,7 +334,7 @@
     {
       "description": "Summary of Panel.",
       "supportedOperation": [
-        
+
       ],
       "@type": "hydra:Class",
       "@id": "vocab:PanelSummary",
@@ -347,7 +347,7 @@
             "range": "rdfs:Literal",
             "description": "A name given to the Panel.",
             "supportedOperation": [
-              
+
             ],
             "@type": "rdf:Property",
             "@id": "rdfs:label",
@@ -369,7 +369,7 @@
                 "method": "GET",
                 "description": null,
                 "statusCodes": [
-                  
+
                 ],
                 "@id": "vocab:PanelSummary/viewpanel/view",
                 "returns": null,
@@ -395,7 +395,7 @@
           "method": "POST",
           "description": null,
           "statusCodes": [
-            
+
           ],
           "returns": "vocab:FieldSelect",
           "label": "Select fields"
@@ -417,7 +417,7 @@
             "description": "DataTable",
             "domain": "vocab:CSVWTableSelect",
             "supportedOperation": [
-              
+
             ],
             "@type": "rdf:Property",
             "@id": "vocab:CSVWTableSelect/datatable",
@@ -431,7 +431,7 @@
     },
     {
       "supportedOperation": [
-        
+
       ],
       "@type": "hydra:Class",
       "@id": "vocab:GGJSXYFieldsPlusYFunc",
@@ -444,7 +444,7 @@
             "description": "X axis",
             "domain": "vocab:GGJSXYFieldsPlusYFunc",
             "supportedOperation": [
-              
+
             ],
             "@type": "rdf:Property",
             "@id": "vocab:GGJSXYFieldsPlusYFunc/xaxis",
@@ -461,7 +461,7 @@
             "description": "Y axis",
             "domain": "vocab:GGJSXYFieldsPlusYFunc",
             "supportedOperation": [
-              
+
             ],
             "@type": "rdf:Property",
             "@id": "vocab:GGJSXYFieldsPlusYFunc/yaxis",
@@ -492,7 +492,7 @@
           "writeonly": false,
           "property": {
             "supportedOperation": [
-              
+
             ],
             "@type": "rdf:Property",
             "@id": "vocab:GGJSXYFieldsPlusYFunc/aggfunc",
@@ -515,7 +515,7 @@
           "@id": "_:dataset_create",
           "@type": "http://schema.org/AddAction",
           "statusCodes": [
-            
+
           ],
           "returns": "vocab:DCATDatasetShort",
           "label": "New file"
@@ -538,7 +538,7 @@
     {
       "description": "Summary of DCAT Dataset.",
       "supportedOperation": [
-        
+
       ],
       "@type": "hydra:Class",
       "@id": "vocab:DatasetSummary",
@@ -551,7 +551,7 @@
             "range": "rdfs:Literal",
             "description": "A name given to the dataset.",
             "supportedOperation": [
-              
+
             ],
             "@type": "rdf:Property",
             "@id": "dct:title",
@@ -566,7 +566,7 @@
     {
       "subClassOf": "http://www.w3.org/ns/hydra/core#PagedCollection",
       "supportedOperation": [
-        
+
       ],
       "@type": "hydra:Class",
       "@id": "vocab:CSVWTableSummaryPagedCollection",
@@ -585,7 +585,7 @@
     {
       "description": "Summary of CSVw Table.",
       "supportedOperation": [
-        
+
       ],
       "@type": "hydra:Class",
       "@id": "vocab:CSVWTableSummary",
@@ -598,7 +598,7 @@
             "range": "rdfs:Literal",
             "description": "A name given to the table.",
             "supportedOperation": [
-              
+
             ],
             "@type": "rdf:Property",
             "@id": "dct:title",
@@ -613,7 +613,7 @@
     {
       "description": "Create DCAT DataSet from CSV.",
       "supportedOperation": [
-        
+
       ],
       "@type": "hydra:Class",
       "@id": "vocab:CreateDCATDataSetFromCSVCommand",
@@ -626,7 +626,7 @@
             "range": "rdfs:Literal",
             "description": "A name given to the dataset.",
             "supportedOperation": [
-              
+
             ],
             "@type": "rdf:Property",
             "@id": "dct:title",
@@ -643,7 +643,7 @@
             "range": "hydraext:inputTypeFileUpload",
             "description": "The data file.",
             "supportedOperation": [
-              
+
             ],
             "@type": "vocab:dcatDistributionFile",
             "@id": "vocab:dcatDistributionFile",
@@ -660,7 +660,7 @@
             "range": "rdfs:Literal",
             "description": "A name given to the dataset.",
             "supportedOperation": [
-              
+
             ],
             "@type": "rdf:Property",
             "@id": "dct:title2",
@@ -675,7 +675,7 @@
     {
       "subClassOf": "http://www.w3.org/ns/hydra/core#PagedCollection",
       "supportedOperation": [
-        
+
       ],
       "@type": "hydra:Class",
       "@id": "vocab:DeviceSummaryPagedCollection",
@@ -694,7 +694,35 @@
     {
       "description": "Summary of Web of Things Device.",
       "supportedOperation": [
-        
+
+      ],
+      "@type": "hydra:Class",
+      "@id": "td:Thing",
+      "supportedProperty": [
+        {
+          "hydra:title": "Title",
+          "required": true,
+          "writeonly": false,
+          "property": {
+            "range": "rdfs:Literal",
+            "description": "A name given to the Device.",
+            "supportedOperation": [
+
+            ],
+            "@type": "rdf:Property",
+            "@id": "td:name",
+            "label": "Title"
+          },
+          "readonly": false,
+          "hydra:description": "A name given to the Device."
+        }
+      ],
+      "label": "Web of Things Device"
+    },
+    {
+      "description": "Summary of Web of Things Device.",
+      "supportedOperation": [
+
       ],
       "@type": "hydra:Class",
       "@id": "vocab:DeviceSummary",
@@ -707,7 +735,7 @@
             "range": "rdfs:Literal",
             "description": "A name given to the Device.",
             "supportedOperation": [
-              
+
             ],
             "@type": "rdf:Property",
             "@id": "td:name",
@@ -717,21 +745,31 @@
           "hydra:description": "A name given to the Device."
         },
         {
-          "hydra:title": "Title",
+          "hydra:title": "Dashboard",
           "required": true,
           "writeonly": false,
           "property": {
-            "range": "rdfs:Literal",
-            "description": "A name given to the Device.",
+            "range": "rdfs:Link",
+            "description": "The dashboard for the Device.",
             "supportedOperation": [
-              
+                {
+                  "expects": null,
+                  "method": "GET",
+                  "description": null,
+                  "statusCodes": [
+
+                  ],
+                  "@id": "vocab:deviceDashboardLinkGET",
+                  "returns": null,
+                  "label": "View Panel"
+                }
             ],
             "@type": "rdf:Property",
-            "@id": "dct:title",
-            "label": "Title"
+            "@id": "vocab:deviceDashboardLink",
+            "label": "Dashboard"
           },
           "readonly": false,
-          "hydra:description": "A name given to the Device."
+          "hydra:description": "The dashboard for the Device."
         }
       ],
       "label": "Device Summary"
@@ -739,7 +777,7 @@
     {
       "description": "Summary of Web of Things Device.",
       "supportedOperation": [
-        
+
       ],
       "@type": "hydra:Class",
       "@id": "vocab:DeviceSimple",
@@ -752,7 +790,7 @@
             "range": "rdfs:Literal",
             "description": "A name given to the Device.",
             "supportedOperation": [
-              
+
             ],
             "@type": "rdf:Property",
             "@id": "vocab:name",
@@ -769,7 +807,7 @@
             "range": "rdfs:Literal",
             "description": "The hostname of the MQTT server (e.g. example.com).",
             "supportedOperation": [
-              
+
             ],
             "@type": "rdf:Property",
             "@id": "vocab:hostname",
@@ -786,7 +824,7 @@
             "range": "rdfs:Literal",
             "description": "The port of the MQTT server.",
             "supportedOperation": [
-              
+
             ],
             "@type": "rdf:Property",
             "@id": "vocab:port",
@@ -803,7 +841,7 @@
             "range": "rdfs:Literal",
             "description": "The topic of the MQTT server.",
             "supportedOperation": [
-              
+
             ],
             "@type": "rdf:Property",
             "@id": "vocab:topic",
@@ -825,7 +863,7 @@
       "@type": "@id",
       "@id": "rdfs:subClassOf"
     },
-    "td": "http://w3c.github.io/wot/w3c-wot-td-ontology.owl#",
+    "td": "http://iot.linkeddata.es/def/wot#",
     "vocab": "http://localhost:8080/hydra/api-doc#",
     "code": "hydra:statusCode",
     "statusCodes": "hydra:statusCodes",
@@ -867,6 +905,6 @@
     "property": "hydra:property"
   },
   "statusCodes": [
-    
+
   ]
 }

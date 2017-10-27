@@ -260,11 +260,22 @@ const fetchDocForFrame = (frameId, iri) => dispatch => {
     case 'http://localhost:8080/csvw/table-summaries':
       iri = '/tmpdata/table_summaries.json'
       break
+    case 'http://localhost:8080/wot/device-summaries':
+        iri = '/tmpdata/devices.json'
+        break
     default:
-      throw new Error("Unknown Hydra Doc IRI: " + iri)
+      iri = iri
+      //throw new Error("Unknown Hydra Doc IRI: " + iri)
+      break
   }
 
-  return fetch(iri)
+  // return fetch(iri)
+  return fetch(iri, {
+      credentials: 'include',
+      headers: {
+          Accept: 'application/ld+json'
+      }
+  })
     .then(response => response.json())
     .then(json => expandJsonld(json))
     .then(json => dispatch(receiveDocForFrame(frameId, json)))
@@ -286,4 +297,3 @@ export const fetchDocForFrameIfNeeded = (frameId, iri) => (dispatch, getState) =
     return dispatch(fetchDocForFrame(frameId, iri))
   }
 }
-

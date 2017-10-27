@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { 
+import {
   fetchDocForFrameIfNeeded,
   invalidateFrame, changeIRIForFrame
 } from '../actions'
@@ -82,6 +82,9 @@ class HydraFrame extends Component {
     const { iri, isFetching, lastUpdated, hydraDoc, frameId, apiDocClass, apiDoc, defaultIri } = this.props
     const isEmpty = this.isHydraDocEmpty()
     const isCollectn = this.isCollection()
+    if (!isEmpty && apiDocClass == null) {
+        throw new Error("Couldn't find the Hydra API SupportedClass for " + hydraDoc['@type'])
+    }
 
     return (
       <div>

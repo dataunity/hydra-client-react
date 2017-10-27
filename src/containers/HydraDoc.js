@@ -10,6 +10,66 @@ import HydraForm from './HydraForm'
 
 class HydraDoc extends Component {
 
+	renderComponent() {
+		const { hydraDoc,
+			supportedClass,
+			frameId,
+			formMethod,
+			formUrl,
+			formExpectedClass,
+			overrideHydraDocByClassComponents } = this.props
+		const showFormView = Boolean(formMethod)
+		const hydraDocClasses = hydraDoc['@type']
+		var overrideComponent = null
+
+		// Find any override Components for the current Hydra Doc
+		hydraDocClasses.forEach(function (val, index) {
+			console.log('[HydraDoc.renderComponent()]', val)
+			if (typeof overrideHydraDocByClassComponents[val] !== 'undefined') {
+				overrideComponent = overrideHydraDocByClassComponents[val]
+				console.log('[HydraDoc.renderComponent()] found replacement')
+			}
+		})
+
+		if (overrideComponent) {
+			return React.createElement(overrideComponent,
+				{
+					hydraDoc,
+					supportedClass,
+					frameId
+				})
+		} else if (showFormView) {
+			return <div>
+				<h2>{getLabel(supportedClass)}</h2>
+
+				<HydraForm form={'form-' + frameId}
+					onSubmit={showResults}
+					formMethod={formMethod}
+					formUrl={formUrl}
+					expectedClass={formExpectedClass} />
+			</div>
+		} else {
+			return <div>
+				<h2>{getLabel(supportedClass)}</h2>
+
+				<HydraProperties
+					hydraDoc={hydraDoc}
+					supportedClass={supportedClass}
+					frameId={frameId} />
+			</div>
+		}
+	}
+
+	render() {
+		// const renderComponent = this.renderComponent
+		return (
+			<div>
+				{this.renderComponent()}
+			</div>
+		)
+	}
+
+	/*
 	render() {
 		const { hydraDoc, supportedClass, frameId, formMethod, formUrl, formExpectedClass } = this.props
 		const showFormView = Boolean(formMethod)
@@ -17,32 +77,34 @@ class HydraDoc extends Component {
 			<div>
 				<h2>{getLabel(supportedClass)}</h2>
 				{showFormView
-					? <HydraForm form={'form-' + frameId} 
+					? <HydraForm form={'form-' + frameId}
 						onSubmit={showResults}
-						formMethod={formMethod} 
-						formUrl={formUrl} 
+						formMethod={formMethod}
+						formUrl={formUrl}
 						expectedClass={formExpectedClass} />
-					: <HydraProperties 
-						hydraDoc={hydraDoc} 
+					: <HydraProperties
+						hydraDoc={hydraDoc}
 						supportedClass={supportedClass}
 						frameId={frameId} />
 				}
 			</div>
 		)
 	}
+	*/
 }
 
 HydraDoc.propTypes = {
 	hydraDoc: PropTypes.object.isRequired,
-	supportedClass: PropTypes.object,
+	supportedClass: PropTypes.object.isRequired,
 	frameId: PropTypes.string.isRequired,
 	formMethod: PropTypes.string,
 	formUrl: PropTypes.string,
-	formExpectedClass: PropTypes.object
+	formExpectedClass: PropTypes.object,
+	overrideHydraDocByClassComponents: PropTypes.object.isRequired
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const { formByFrameId } = state
+  const { formByFrameId, overrideHydraDocByClassComponents } = state
   const { frameId } = ownProps
   const {
     method: formMethod,
@@ -57,7 +119,8 @@ const mapStateToProps = (state, ownProps) => {
   return {
     formMethod,
     formUrl,
-    formExpectedClass
+    formExpectedClass,
+	overrideHydraDocByClassComponents
   }
 }
 

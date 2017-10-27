@@ -6,7 +6,7 @@ import thunk from 'redux-thunk'
 import { createLogger } from 'redux-logger'
 import reducer from './reducers'
 import App from './containers/App'
-
+// import DeviceDashboardHydraDoc from '../../dataunity-web/duweb/static/devicedashboard/src/containers/DeviceDashboardHydraDoc'
 
 
 
@@ -36,8 +36,8 @@ export default class TestHydraProperty extends Component {
         {isSimpleValue &&
           <span>{val["@value"]}</span>
         }
-        <HydraOperations 
-          val={val} 
+        <HydraOperations
+          val={val}
           supportedProperty={supportedProperty}
           frameId={frameId} />
       </div>
@@ -51,6 +51,24 @@ TestHydraProperty.propTypes = {
   frameId: PropTypes.string.isRequired
 }
 
+class TestReplacementHydraDoc extends Component {
+  render() {
+      const { frameId } = this.props
+
+    return (
+      <div>
+        Replacement Hydra Doc in {frameId}
+      </div>
+    )
+  }
+}
+
+TestReplacementHydraDoc.propTypes = {
+  hydraDoc: PropTypes.object.isRequired,  // The value of the Hydra Doc property
+  supportedClass: PropTypes.object.isRequired,
+  frameId: PropTypes.string.isRequired
+}
+
 //*******************************
 
 
@@ -59,12 +77,20 @@ if (process.env.NODE_ENV !== 'production') {
   middleware.push(createLogger())
 }
 
+// overrideHydraPropertyComponents: overrides a Hydra Property with a
+//  replacement component
+// overrideHydraDocByClassComponents: overrides a Hydra Doc with a Component
+//  when the Hydra Doc matches the class given in the key
 const intialState = {
 	entryPoint: 'http://localhost:8080/hydra/entrypoint',
 	currentHydraAPIDoc: 'http://localhost:8080/hydra/api-doc',
-  overrideHydraPropertyComponents: {
-    'http://localhost:8080/hydra/api-doc#EntryPoint/devicesummaries': TestHydraProperty
-  }
+    // overrideHydraPropertyComponents: {
+    //     'http://localhost:8080/hydra/api-doc#EntryPoint/devicesummaries': TestHydraProperty
+    // },
+    overrideHydraDocByClassComponents: {
+        'http://iot.linkeddata.es/def/wot#Thing': TestReplacementHydraDoc,
+        // 'http://iot.linkeddata.es/def/wot#Thing': DeviceDashboardHydraDoc
+    }
 }
 
 const store = createStore(

@@ -1,5 +1,5 @@
 {
-  "name": "async",
+  "name": "hydra-client-react",
   "version": "0.0.1",
   "private": true,
   "devDependencies": {
@@ -15,7 +15,7 @@
     "redux": "^3.5.2",
     "redux-thunk": "^2.1.0",
     "redux-form": "^7.0.0",
-    "react-dropzone": "^3.13.3" 
+    "react-dropzone": "^3.13.3"
   },
   "scripts": {
     "start": "react-scripts start",
