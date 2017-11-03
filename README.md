@@ -1,3 +1,5 @@
+# DEPRECATED: see react-hydra-client repository instead
+
 # hydra-client-react
 ReactJS Hydra client
 
